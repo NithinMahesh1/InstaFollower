@@ -2,10 +2,13 @@ package com.InstaFollower.InstaBot;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class InstaBot {
     String username;
     String password;
+    String lastname;
     WebDriver driver;
 
     /*
@@ -18,31 +21,57 @@ public class InstaBot {
     *           InstaBot() extends BOT {}
     * */
 
-    public InstaBot(String username, String password, WebDriver driver) {
+    public InstaBot(String username, String password, String lastname, WebDriver driver) {
         this.username = username;
         this.password = password;
+        this.lastname = lastname;
         this.driver = driver;
     }
 
     public void runInstaBot() throws InterruptedException {
         driver.get("https://www.instagram.com/accounts/emailsignup/");
 
-        // Input for tutanota email created on EmailBot
+        // Sign up main page
         Thread.sleep(3000);
-        driver.findElement(By.xpath("//*[@id=\"mount_0_0_oM\"]/div/div/div/div[1]/div/div/div/div[1]/section/main/div/div/div[1]/div[2]/form/div[3]/div/label/input")).sendKeys(username+"@tutanota.com");
+        WebElement emailInput = driver.findElement(By.name("emailOrPhone"));
+        WebElement fullname = driver.findElement(By.name("fullName"));
+        WebElement usernameElem = driver.findElement(By.name("username"));
+        WebElement passwordElem = driver.findElement(By.name("password"));
+        WebElement signUpButton = driver.findElement(By.xpath("//button[contains(text(), 'Sign up')]"));
 
-        // Full name input
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("//*[@id=\"mount_0_0_oM\"]/div/div/div/div[1]/div/div/div/div[1]/section/main/div/div/div[1]/div[2]/form/div[4]/div/label/input")).sendKeys("David Smithster");
+        Thread.sleep(1000);
+        emailInput.sendKeys(username + "@tutanota.com");
+        fullname.sendKeys(username + " " + lastname);
+        usernameElem.sendKeys(username);
+        passwordElem.sendKeys(password);
+        signUpButton.click();
 
-        // username input
-        driver.findElement(By.xpath("//*[@id=\"mount_0_0_oM\"]/div/div/div/div[1]/div/div/div/div[1]/section/main/div/div/div[1]/div[2]/form/div[5]/div/label/input")).sendKeys(username);
+        // Birthday inputs second menu
+        // Find the elements for the day, month, and year dropdown menus
+        Thread.sleep(2000);
+        WebElement dayDropdown = driver.findElement(By.xpath("//select[@title='Day:']"));
+        WebElement monthDropdown = driver.findElement(By.xpath("//select[@title='Month:']"));
+        WebElement yearDropdown = driver.findElement(By.xpath("//select[@title='Year:']"));
+        WebElement nextButtonBdayMenu = driver.findElement(By.xpath("//button[contains(text(), 'Next')]"));
 
-        // password input
-        driver.findElement(By.xpath("//*[@id=\"mount_0_0_oM\"]/div/div/div/div[1]/div/div/div/div[1]/section/main/div/div/div[1]/div[2]/form/div[6]/div/label/input")).sendKeys(password);
+        // Use the Select class to create a selector for each dropdown
+        Select daySelector = new Select(dayDropdown);
+        Select monthSelector = new Select(monthDropdown);
+        Select yearSelector = new Select(yearDropdown);
 
-        // click sign up button
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("//*[@id=\"mount_0_0_oM\"]/div/div/div/div[1]/div/div/div/div[1]/section/main/div/div/div[1]/div[2]/form/div[7]/div/button")).click();
+        // Select the desired values for day, month, and year
+        daySelector.selectByValue("1");
+        monthSelector.selectByValue("11");
+        yearSelector.selectByValue("1997");
+        nextButtonBdayMenu.click();
+
+        /*
+        * TODO - There is an email confirmation code input menu
+        *      - Need to run a method in EmailBot to log into email account
+        *      - Open tutanota in second tab to select the first email and grab code
+        *      - Close second tutanota tab
+        *      - Enter code into confirmation code input field
+        *      - Hit next button
+        * */
     }
 }
