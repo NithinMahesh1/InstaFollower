@@ -70,5 +70,7 @@ public class EmailBot {
 
         // Clicks the Log In button
         driver.findElement(By.xpath("//*[@id=\"login-view\"]/div[2]/div/div[1]/form/div[4]/button")).click();
+
+        driver.quit();
     }
 }
