@@ -1,6 +1,6 @@
 # InstaFollower
 
-![InstaFollower](Screenshots/wip.jpg)
+![InstaFollower](Screenshots/WIP.jpg)
 
 ##### Description:
 Bot to create Instagram followers.
