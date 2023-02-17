@@ -1,8 +1,11 @@
 package com.InstaFollower.InstaBot;
 
+import com.InstaFollower.EmailBot.EmailBot;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 public class InstaBot {
@@ -10,6 +13,7 @@ public class InstaBot {
     String password;
     String lastname;
     WebDriver driver;
+    EmailBot bot;
 
     /*
     * TODO
@@ -21,11 +25,12 @@ public class InstaBot {
     *           InstaBot() extends BOT {}
     * */
 
-    public InstaBot(String username, String password, String lastname, WebDriver driver) {
+    public InstaBot(String username, String password, String lastname, WebDriver driver, EmailBot bot) {
         this.username = username;
         this.password = password;
         this.lastname = lastname;
         this.driver = driver;
+        this.bot = bot;
     }
 
     public void runInstaBot() throws InterruptedException {
@@ -73,5 +78,7 @@ public class InstaBot {
         *      - Enter code into confirmation code input field
         *      - Hit next button
         * */
+
+        bot.loginEmail(driver);
     }
 }

@@ -25,7 +25,7 @@ public class Main {
 
         // Initialize both bots
         EmailBot EmailBot1 = new EmailBot("NahBruhWeCoolWithIt","EggMcChickenISNice",driver);
-        InstaBot InstaBot1 = new InstaBot("DavidSmithGunFighterStarWars","M1tywwyS444hs1834!", "Charles",driver);
+        InstaBot InstaBot1 = new InstaBot("DavidSmithGunFighterStarWars","M1tywwyS444hs1834!", "Charles",driver,EmailBot1);
 
         // Run the bots (at the moment only one at a time)
         //EmailBot1.runEmailBot();

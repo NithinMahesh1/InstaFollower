@@ -1,7 +1,11 @@
 package com.InstaFollower.EmailBot;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import java.util.Set;
 
 public class EmailBot {
     String username;
@@ -72,5 +76,24 @@ public class EmailBot {
         driver.findElement(By.xpath("//*[@id=\"login-view\"]/div[2]/div/div[1]/form/div[4]/button")).click();
 
         driver.quit();
+    }
+
+    public void loginEmail(WebDriver driver1) {
+        // Create a new instance of the Actions class
+        Actions actions = new Actions(driver1);
+
+        // Simulate pressing the "Control" key and the "T" key simultaneously
+        actions.sendKeys(Keys.CONTROL, "t").build().perform();
+
+        // Get handles of all the tabs
+        Set<String> handles = driver1.getWindowHandles();
+
+        // Switch to the last tab
+        for (String handle : handles) {
+            driver1.switchTo().window(handle);
+        }
+
+        // Navigate to the second page
+        driver1.get("https://mail.tutanota.com/");
     }
 }
