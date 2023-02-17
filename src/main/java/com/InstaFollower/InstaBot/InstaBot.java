@@ -79,6 +79,8 @@ public class InstaBot {
         *      - Hit next button
         * */
 
-        bot.loginEmail(driver);
+        bot.loginEmail(driver, username, password);
+        String generatedCode = bot.getInstaConfirmationCode(driver);
+
     }
 }

@@ -24,11 +24,11 @@ public class Main {
         WebDriver driver = new ChromeDriver();
 
         // Initialize both bots
-        EmailBot EmailBot1 = new EmailBot("NahBruhWeCoolWithIt","EggMcChickenISNice",driver);
-        InstaBot InstaBot1 = new InstaBot("DavidSmithGunFighterStarWars","M1tywwyS444hs1834!", "Charles",driver,EmailBot1);
+        EmailBot EmailBot1 = new EmailBot("NahBruhWeCoolWithIt","Charles",driver);
+        InstaBot InstaBot1 = new InstaBot("DavidSmithMasterFighter","fightorlgithsg4615661!!", "Charles",driver,EmailBot1);
 
         // Run the bots (at the moment only one at a time)
-        //EmailBot1.runEmailBot();
-        InstaBot1.runInstaBot();
+        EmailBot1.runEmailBot();
+        //InstaBot1.runInstaBot();
     }
 }

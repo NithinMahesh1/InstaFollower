@@ -1,10 +1,9 @@
 package com.InstaFollower.EmailBot;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.List;
 import java.util.Set;
 
 public class EmailBot {
@@ -78,22 +77,25 @@ public class EmailBot {
         driver.quit();
     }
 
-    public void loginEmail(WebDriver driver1) {
-        // Create a new instance of the Actions class
-        Actions actions = new Actions(driver1);
+    public void loginEmail(WebDriver driver1, String usernameInsta, String passwordInsta) throws InterruptedException {
+        Thread.sleep(1000);
+        driver1.switchTo().newWindow(WindowType.TAB);
+        driver1.get("https://mail.tutanota.com/login");
 
-        // Simulate pressing the "Control" key and the "T" key simultaneously
-        actions.sendKeys(Keys.CONTROL, "t").build().perform();
+        WebElement emailAddy = driver.findElement(By.xpath("//input[@type='email']"));
+        WebElement passwordInputs = driver.findElement(By.xpath("//input[@type='password']"));
+        WebElement loginEmailButton = driver.findElement(By.xpath("//button[@title='Log in']"));
 
-        // Get handles of all the tabs
-        Set<String> handles = driver1.getWindowHandles();
+        emailAddy.sendKeys(usernameInsta + "@tutanota.com");
+        passwordInputs.sendKeys(password);
+        loginEmailButton.click();
+    }
 
-        // Switch to the last tab
-        for (String handle : handles) {
-            driver1.switchTo().window(handle);
-        }
+    public String getInstaConfirmationCode(WebDriver driver2) {
+        //driver.findElement(By.xpath("//div[contains(text(), 'Instagram code')))]")).click();
 
-        // Navigate to the second page
-        driver1.get("https://mail.tutanota.com/");
+        List<WebElement> emailTitles = driver.findElements(By.xpath("//span[@class='Instagram']"));
+
+        return "test";
     }
 }
