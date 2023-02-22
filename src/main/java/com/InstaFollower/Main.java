@@ -24,7 +24,7 @@ public class Main {
         WebDriver driver = new ChromeDriver();
 
         // Initialize both bots
-        EmailBot EmailBot1 = new EmailBot("NahBruhWeCoolWithIt","Charles",driver);
+        EmailBot EmailBot1 = new EmailBot("NahBruhWeCoolWithIt","Charles13435262!@@",driver);
         InstaBot InstaBot1 = new InstaBot("DavidSmithMasterFighter","fightorlgithsg4615661!!", "Charles",driver,EmailBot1);
 
         // Run the bots (at the moment only one at a time)

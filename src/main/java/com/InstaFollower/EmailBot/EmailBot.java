@@ -1,8 +1,17 @@
 package com.InstaFollower.EmailBot;
 
+// Instafollower Class Imports
+import com.InstaFollower.ElementHelper.ElementHelper;
+
+// Selenium class imports
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+// Java DataStructure class imports
+import javax.swing.text.Element;
+import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 
@@ -21,58 +30,50 @@ public class EmailBot {
         // Open the desired webpage
         driver.get("https://mail.tutanota.com/login?noAutoLogin=true");
 
-        Thread.sleep(1000);
+        ElementHelper helper = new ElementHelper(driver);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         // Clicks the More Option
-        driver.findElement(By.xpath("//*[@id=\"login-view\"]/div[2]/div/div[3]/div/button")).click();
+        WebElement moreDropdownButton = helper.findElement(By.className("expander"));
+        wait.until(ExpectedConditions.elementToBeClickable(moreDropdownButton)).click();
 
-        // Clicks the SignUpButton to open dialog
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//*[@id=\"login-view\"]/div[2]/div/div[4]/div/div/div/button[1]/div")).click();
+        // Clicks the signup buttons on main page
+        WebElement signUpButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Sign up']")));
+        signUpButton.click();
 
-        // Clicks the free account button in dialog
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("/html/body/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div[2]/div[1]/div/div[1]/div[5]/button/div")).click();
+        // Define elements for the second page
+        WebElement selectButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Select']")));
+        selectButton.click();
 
-        // Clicks the "I do not own any other Free Account" checkbox
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//*[@id=\"modal\"]/div[2]/div/div/div/div[2]/div[1]/div/input")).click();
+        // After select is clicked modal appears and we proceed to click the checkboxes then the "ok" button
+        WebElement checkbox1Page2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'I do not own any other Free account')]")));
+        WebElement checkbox2page2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'I will not use this account for business')]")));
+        WebElement okButtonPage2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Ok']")));
 
-        // Clicks the "I will not use this account for business" checkbox
-        driver.findElement(By.xpath("//*[@id=\"modal\"]/div[2]/div/div/div/div[2]/div[2]/div/input")).click();
+        checkbox1Page2.click();
+        checkbox2page2.click();
+        okButtonPage2.click();
 
-        // Clicks the ok button to close dialog
-        driver.findElement(By.xpath("//*[@id=\"modal\"]/div[2]/div/div/div/div[3]/button[2]/div")).click();
+        // Now we send keys to the email addy and the set password input fields
+        Thread.sleep(2000);
+        WebElement emailAddyField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@aria-label='Email address']")));
+        WebElement passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@aria-label='Set password']")));
+        WebElement checkbox1Page3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'I have read and agree to the following documents')]")));
+        WebElement checkbox2Page3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'I am at least 16 years old')]")));
+        WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Next']")));
 
-        // Inputs the username/email name into Email Address input field
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//*[@id=\"signup-account-dialog\"]/div/div[1]/div/div/div/div[1]/input")).sendKeys(username);
-
-        // Inputs the password into Set Password input field
+        // Click the two checkboxes on signup screen and then hit next button
+        emailAddyField.sendKeys(username);
+        passwordField.sendKeys(password);
+        checkbox1Page3.click();
+        checkbox2Page3.click();
         Thread.sleep(5000);
-        driver.findElement(By.xpath("//*[@id=\"signup-account-dialog\"]/div/div[2]/div[1]/div/div/div/div[1]/input")).sendKeys(password);
+        nextButton.click();
 
-        // Checks the "I have read terms" checkbox
-        driver.findElement(By.xpath("//*[@id=\"signup-account-dialog\"]/div/div[3]/div/input")).click();
+        // After input field we get to the last page 3 and click the "Ok" button
+        Thread.sleep(22000);
+        WebElement okButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Ok']")));
 
-        // Checks the "I am at least 16 years old" checkbox
-        driver.findElement(By.xpath("//*[@id=\"signup-account-dialog\"]/div/div[4]/div/input")).click();
-
-        // Clicks the Next button to submit
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//*[@id=\"signup-account-dialog\"]/div/div[5]/button/div")).click();
-
-        // Clicks ok button after user is created, assuming we do not hit the captcha clock dialog
-        Thread.sleep(20000);
-        driver.findElement(By.xpath("//*[@id=\"wizardDialogContent\"]/div[4]/div/button")).click();
-
-        // Inputs new users Email Address into login input dialog
-        driver.findElement(By.xpath("//*[@id=\"login-view\"]/div[2]/div/div[1]/form/div[1]/div/div/div/div/div/input")).sendKeys(username + "@tutanota.com");
-
-        // Inputs new users Password into password input dialog
-        driver.findElement(By.xpath("//*[@id=\"login-view\"]/div[2]/div/div[1]/form/div[2]/div/div/div/div/div/input")).sendKeys(password);
-
-        // Clicks the Log In button
-        driver.findElement(By.xpath("//*[@id=\"login-view\"]/div[2]/div/div[1]/form/div[4]/button")).click();
 
         driver.quit();
     }
