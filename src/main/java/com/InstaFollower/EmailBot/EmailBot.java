@@ -45,7 +45,7 @@ public class EmailBot {
         WebElement selectButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Select']")));
         selectButton.click();
 
-        // After select is clicked modal appears and we proceed to click the checkboxes then the "ok" button
+        // After select is clicked modal appears then we proceed to click the checkboxes then the "ok" button
         WebElement checkbox1Page2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'I do not own any other Free account')]")));
         WebElement checkbox2page2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'I will not use this account for business')]")));
         WebElement okButtonPage2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Ok']")));
@@ -71,9 +71,10 @@ public class EmailBot {
         nextButton.click();
 
         // After input field we get to the last page 3 and click the "Ok" button
+        // TODO - how do we get past the clock captcha
         Thread.sleep(22000);
         WebElement okButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Ok']")));
-
+        okButton.click();
 
         driver.quit();
     }

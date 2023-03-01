@@ -13,6 +13,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
     DavidSmithMasterFighter
     Charles
+
+    2_28_2023 - First successful emailbot created fully automated
+        * This is the user: bangarang99neighbors password: bmwM5csdroptop1$
 */
 
 public class Main {
@@ -24,7 +27,7 @@ public class Main {
         WebDriver driver = new ChromeDriver();
 
         // Initialize both bots
-        EmailBot EmailBot1 = new EmailBot("NahBruhWeCoolWithIt","Charles13435262!@@",driver);
+        EmailBot EmailBot1 = new EmailBot("bangarang99neighbors","bmwM5csdroptop1$",driver);
         InstaBot InstaBot1 = new InstaBot("DavidSmithMasterFighter","fightorlgithsg4615661!!", "Charles",driver,EmailBot1);
 
         // Run the bots (at the moment only one at a time)
