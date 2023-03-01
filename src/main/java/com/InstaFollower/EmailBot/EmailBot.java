@@ -5,15 +5,11 @@ import com.InstaFollower.ElementHelper.ElementHelper;
 
 // Selenium class imports
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 // Java DataStructure class imports
-import javax.swing.text.Element;
 import java.time.Duration;
-import java.util.List;
-import java.util.Set;
 
 public class EmailBot {
     String username;
@@ -93,11 +89,21 @@ public class EmailBot {
         loginEmailButton.click();
     }
 
-    public String getInstaConfirmationCode(WebDriver driver2) {
-        //driver.findElement(By.xpath("//div[contains(text(), 'Instagram code')))]")).click();
+    public String getInstaConfirmationCode(WebDriver driver2) throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        List<WebElement> emailTitles = driver.findElements(By.xpath("//span[@class='Instagram']"));
+//        List<WebElement> emailTitles = driver.findElements(By.xpath("//span[@class='Instagram']"));
 
-        return "test";
+        WebElement instagramEmail = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'Instagram code')]")));
+        instagramEmail.click();
+
+        Thread.sleep(9000);
+        WebElement tdElement = driver.findElement(By.xpath("//*[@id=\"email_content\"]/table/tbody/tr[4]/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/table/tbody/tr[2]/td[2]"));
+        String confirmationCode = tdElement.getText();
+
+//        WebElement confirmationElem = driver.findElement(By.xpath("//td[@class='my-class']"));
+//        String confirmationCodeStr = confirmationElem.getText();
+
+        return confirmationCode;
     }
 }

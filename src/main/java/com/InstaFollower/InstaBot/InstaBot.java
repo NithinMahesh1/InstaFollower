@@ -65,9 +65,9 @@ public class InstaBot {
         Select yearSelector = new Select(yearDropdown);
 
         // Select the desired values for day, month, and year
-        daySelector.selectByValue("1");
-        monthSelector.selectByValue("11");
-        yearSelector.selectByValue("1997");
+        daySelector.selectByValue("12");
+        monthSelector.selectByValue("12");
+        yearSelector.selectByValue("1989");
         nextButtonBdayMenu.click();
 
         /*
