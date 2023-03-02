@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 // Java DataStructure class imports
 import java.time.Duration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EmailBot {
     String username;
@@ -92,17 +94,24 @@ public class EmailBot {
     public String getInstaConfirmationCode(WebDriver driver2) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-//        List<WebElement> emailTitles = driver.findElements(By.xpath("//span[@class='Instagram']"));
-
+        Thread.sleep(13000);
         WebElement instagramEmail = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'Instagram code')]")));
         instagramEmail.click();
 
-        Thread.sleep(9000);
-        WebElement tdElement = driver.findElement(By.xpath("//*[@id=\"email_content\"]/table/tbody/tr[4]/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/table/tbody/tr[2]/td[2]"));
-        String confirmationCode = tdElement.getText();
+        WebElement titlebarcode = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(text(),'is your Instagram code')]")));
+        String titlefullstr = titlebarcode.getText();
 
-//        WebElement confirmationElem = driver.findElement(By.xpath("//td[@class='my-class']"));
-//        String confirmationCodeStr = confirmationElem.getText();
+        Pattern pattern = Pattern.compile("^\\d+"); // match one or more digits at the beginning of the string
+        Matcher matcher = pattern.matcher(titlefullstr);
+
+        String confirmationCode = "";
+        if (matcher.find()) {
+            confirmationCode = matcher.group(); // get the matched digits
+        } else {
+            System.out.println("Confirmation code not found");
+        }
+
+        driver.close();
 
         return confirmationCode;
     }

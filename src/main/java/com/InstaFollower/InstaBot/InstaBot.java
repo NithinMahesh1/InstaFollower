@@ -6,7 +6,11 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class InstaBot {
     String username;
@@ -34,6 +38,7 @@ public class InstaBot {
     }
 
     public void runInstaBot() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.get("https://www.instagram.com/accounts/emailsignup/");
 
         // Sign up main page
@@ -65,9 +70,9 @@ public class InstaBot {
         Select yearSelector = new Select(yearDropdown);
 
         // Select the desired values for day, month, and year
-        daySelector.selectByValue("12");
-        monthSelector.selectByValue("12");
-        yearSelector.selectByValue("1989");
+        daySelector.selectByValue("19");
+        monthSelector.selectByValue("1");
+        yearSelector.selectByValue("2000");
         nextButtonBdayMenu.click();
 
         /*
@@ -82,5 +87,10 @@ public class InstaBot {
         bot.loginEmail(driver, username, password);
         String generatedCode = bot.getInstaConfirmationCode(driver);
 
+        WebElement confirmcodefield = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@aria-label='Confirmation Code']")));
+        WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Next')]")));
+
+        confirmcodefield.sendKeys(generatedCode);
+        nextButton.click();
     }
 }

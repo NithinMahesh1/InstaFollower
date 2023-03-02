@@ -21,11 +21,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        String username = "bangarang99neighbors";
-        String password = "bmwM5csdroptop1$";
-        String lastname = "Barnstablethird";
-//        String username = "tylerthecreatorfanboiiiii89";
-//        String password = "tyler$$$$$asaprockyftkidcudi";
+        String username = "JohnJakeTheThird12";
+        String password = "loverofa!!thing$";
+        String lastname = "Davison";
+//        String username = "Patrickthedemonslayeranimelover";
+//        String password = "animeuwuwlovemesempai^&#$^";
 //        String lastname = "FanTylerBoi";
 
 
@@ -38,7 +38,7 @@ public class Main {
         InstaBot InstaBot1 = new InstaBot(username,password, lastname,driver,EmailBot1);
 
         // Run the bots (at the moment only one at a time)
-//        EmailBot1.runEmailBot();
+        EmailBot1.runEmailBot();
         InstaBot1.runInstaBot();
     }
 }
