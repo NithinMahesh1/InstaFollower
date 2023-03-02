@@ -74,7 +74,7 @@ public class EmailBot {
         WebElement okButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Ok']")));
         okButton.click();
 
-        driver.quit();
+//        driver.quit();
     }
 
     public void loginEmail(WebDriver driver1, String usernameInsta, String passwordInsta) throws InterruptedException {

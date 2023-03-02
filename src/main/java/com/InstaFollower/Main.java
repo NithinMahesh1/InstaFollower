@@ -21,12 +21,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        String username = "JohnJakeTheThird12";
-        String password = "loverofa!!thing$";
+        String username = "Jackthebeaniemeanie4";
+        String password = "a$apt1lldeathofme";
         String lastname = "Davison";
-//        String username = "Patrickthedemonslayeranimelover";
-//        String password = "animeuwuwlovemesempai^&#$^";
-//        String lastname = "FanTylerBoi";
+        String month = "1";
+        String day = "20";
+        String year = "1999";
 
 
         // Define the path to the chrome webdriver
@@ -35,7 +35,7 @@ public class Main {
 
         // Initialize both bots
         EmailBot EmailBot1 = new EmailBot(username,password,driver);
-        InstaBot InstaBot1 = new InstaBot(username,password, lastname,driver,EmailBot1);
+        InstaBot InstaBot1 = new InstaBot(username,password,lastname,month,day,year,driver,EmailBot1);
 
         // Run the bots (at the moment only one at a time)
         EmailBot1.runEmailBot();

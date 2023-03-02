@@ -16,6 +16,9 @@ public class InstaBot {
     String username;
     String password;
     String lastname;
+    String month;
+    String day;
+    String year;
     WebDriver driver;
     EmailBot bot;
 
@@ -29,10 +32,13 @@ public class InstaBot {
     *           InstaBot() extends BOT {}
     * */
 
-    public InstaBot(String username, String password, String lastname, WebDriver driver, EmailBot bot) {
+    public InstaBot(String username, String password, String lastname, String day, String month, String year, WebDriver driver, EmailBot bot) {
         this.username = username;
         this.password = password;
         this.lastname = lastname;
+        this.month = month;
+        this.day = day;
+        this.year = year;
         this.driver = driver;
         this.bot = bot;
     }
@@ -70,9 +76,9 @@ public class InstaBot {
         Select yearSelector = new Select(yearDropdown);
 
         // Select the desired values for day, month, and year
-        daySelector.selectByValue("19");
-        monthSelector.selectByValue("1");
-        yearSelector.selectByValue("2000");
+        daySelector.selectByValue(day);
+        monthSelector.selectByValue(month);
+        yearSelector.selectByValue(year);
         nextButtonBdayMenu.click();
 
         /*
