@@ -55,7 +55,7 @@ public class InstaBot {
         WebElement passwordElem = driver.findElement(By.name("password"));
         WebElement signUpButton = driver.findElement(By.xpath("//button[contains(text(), 'Sign up')]"));
 
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         emailInput.sendKeys(username + "@tutanota.com");
         fullname.sendKeys(username + " " + lastname);
         usernameElem.sendKeys(username);
@@ -93,7 +93,11 @@ public class InstaBot {
         bot.loginEmail(driver, username, password);
         String generatedCode = bot.getInstaConfirmationCode(driver);
 
-        WebElement confirmcodefield = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@aria-label='Confirmation Code']")));
+        //WebElement confirmcodefield = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//aria-label[@name='Confirmation Code']")));
+
+        //WebElement confirmcodefield = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='email_confirmation_code']")));
+        Thread.sleep(2000);
+        WebElement confirmcodefield = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("_aaie")));
         WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Next')]")));
 
         confirmcodefield.sendKeys(generatedCode);
