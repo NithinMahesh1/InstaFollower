@@ -15,6 +15,7 @@ import java.time.Duration;
 public class InstaBot {
     String username;
     String password;
+    String firstname;
     String lastname;
     String month;
     String day;
@@ -32,9 +33,10 @@ public class InstaBot {
     *           InstaBot() extends BOT {}
     * */
 
-    public InstaBot(String username, String password, String lastname, String day, String month, String year, WebDriver driver, EmailBot bot) {
+    public InstaBot(String username, String password, String firstname, String lastname, String day, String month, String year, WebDriver driver, EmailBot bot) {
         this.username = username;
         this.password = password;
+        this.firstname = firstname;
         this.lastname = lastname;
         this.month = month;
         this.day = day;
@@ -57,9 +59,9 @@ public class InstaBot {
 
         Thread.sleep(3000);
         emailInput.sendKeys(username + "@tutanota.com");
-        fullname.sendKeys(username + " " + lastname);
+        fullname.sendKeys(firstname + " " + lastname);
         usernameElem.sendKeys(username);
-        passwordElem.sendKeys(password);
+        passwordElem.sendKeys("nahbutTh1$!");
         signUpButton.click();
 
         // Birthday inputs second menu
@@ -96,8 +98,11 @@ public class InstaBot {
         //WebElement confirmcodefield = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//aria-label[@name='Confirmation Code']")));
 
         //WebElement confirmcodefield = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='email_confirmation_code']")));
-        Thread.sleep(2000);
-        WebElement confirmcodefield = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("_aaie")));
+        Thread.sleep(10000);
+       // WebElement confirmcodefield = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("_aaie")));
+
+        WebElement confirmcodefield = driver.findElement(By.xpath("//input[@aria-label='Confirmation Code']"));
+//        WebElement confirmcodefield = driver.findElement(By.xpath("//input[contains(text(), 'Confirmation Code')]"));
         WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Next')]")));
 
         confirmcodefield.sendKeys(generatedCode);
