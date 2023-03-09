@@ -61,7 +61,8 @@ public class InstaBot {
         emailInput.sendKeys(username + "@tutanota.com");
         fullname.sendKeys(firstname + " " + lastname);
         usernameElem.sendKeys(username);
-        passwordElem.sendKeys("nahbutTh1$!");
+        //passwordElem.sendKeys("nahbutTh1$!");
+        passwordElem.sendKeys(password);
         signUpButton.click();
 
         // Birthday inputs second menu
@@ -95,14 +96,18 @@ public class InstaBot {
         bot.loginEmail(driver, username, password);
         String generatedCode = bot.getInstaConfirmationCode(driver);
 
-        //WebElement confirmcodefield = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//aria-label[@name='Confirmation Code']")));
+        /**
+         * WebElement confirmcodefield = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//aria-label[@name='Confirmation Code']")));
+         * WebElement confirmcodefield = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='email_confirmation_code']")));
+         *
+         * WebElement confirmcodefield = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("_aaie")));
+         * WebElement confirmcodefield = driver.findElement(By.xpath("//input[contains(text(), 'Confirmation Code')]"));
+         * */
 
-        //WebElement confirmcodefield = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='email_confirmation_code']")));
         Thread.sleep(10000);
-       // WebElement confirmcodefield = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("_aaie")));
 
+        // We need to rethink this - not sure why no matter what we can't grab this - maybe because of being banned
         WebElement confirmcodefield = driver.findElement(By.xpath("//input[@aria-label='Confirmation Code']"));
-//        WebElement confirmcodefield = driver.findElement(By.xpath("//input[contains(text(), 'Confirmation Code')]"));
         WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Next')]")));
 
         confirmcodefield.sendKeys(generatedCode);

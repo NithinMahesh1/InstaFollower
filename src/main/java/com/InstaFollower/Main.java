@@ -5,24 +5,13 @@ import com.InstaFollower.EmailBot.EmailBot;
 import com.InstaFollower.InstaBot.InstaBot;
 
 // Selenium Imports
-import org.checkerframework.checker.units.qual.C;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
 
 /*
     Created Users:
-
-    DavidSmithMasterFighter
-    Charles
 
     bangarang99neighbors@tutanota.com
     bmwM5csdroptop1$
@@ -41,21 +30,18 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        String username = "DavidSmithMasterFighter";
-        String password = "Charles";
+        String username = randomUsername();
+        String password = randomPassword();
         String firstname = "DavidSmith";
         String lastname = "Garcia";
         String month = "12";
         String day = "13";
         String year = "1999";
 
+
         // Define the path to the chrome webdriver
         System.setProperty("webdriver.chrome.driver", "src\\main\\java\\com\\WebDriver\\chromedriver-110-0-5481-77.exe");
         WebDriver driver = new ChromeDriver();
-
-        // Create random int for DB
-        //randomIntGenerator();
-//        websitenames(driver);
 
         // Initialize both bots
         EmailBot EmailBot1 = new EmailBot(username,password,driver);
@@ -63,61 +49,101 @@ public class Main {
 
         // Run the bots (at the moment only one at a time)
 //        EmailBot1.runEmailBot();
-        InstaBot1.runInstaBot();
+//        InstaBot1.runInstaBot();
     }
 
-    public static int randomIntGenerator() {
+
+    public static String randomUsername() {
+        // get a bunch of lastnames in a map of random index of a map with value being random ints from 1-10000 and lastnames being values
+        // concat lastnames based on some sort of random arrangement
+        // add ints random as well maybe sometimes maybe not
+
+        Map<Integer, String> map = new HashMap<Integer, String>();
+        List<String> list = new ArrayList<>();
         Random r = new Random();
-        int min = 100000;
-        int max = 1000000;
-        int id = r.nextInt((max-min)+1) +min;
+        String finalName = "";
 
-        System.out.println(id);
-        return id;
-    }
+        list.add("Charles");
+        list.add("Smith");
+        list.add("Johnson");
+        list.add("Williams");
+        list.add("Brown");
+        list.add("Jones");
+        list.add("Garcia");
+        list.add("Miller");
+        list.add("Davis");
+        list.add("West");
+        list.add("Bogie");
+        list.add("boogy");
+        list.add("aboogie");
+        list.add("Ruger");
+        list.add("Ghost");
+        list.add("Patrice");
+        list.add("Karen");
+        list.add("Corinne");
+        list.add("Greg");
+        list.add("Jack");
+        list.add("Dom");
+        list.add("Kate");
+        list.add("Snicks");
+        list.add("Leyton");
+        list.add("Paradise");
+        list.add("Waterloo");
+        list.add("Cambridge");
+        list.add("Liam");
+        list.add("Noah");
+        list.add("Oliver");
+        list.add("Amelia");
+        list.add("Charlotte");
+        list.add("Emma");
+        list.add("Olivia");
+        list.add("Isabella");
+        list.add("A$apRocky");
+        list.add("ASAPMob");
 
-    public static void websitenames(WebDriver driver) {
 
-        driver.get("https://www.al.com/news/2019/10/50-most-common-last-names-in-america.html");
-        // Find the table element on the page
-        WebElement table = driver.findElement(By.tagName("div"));
+        for(int i=0; i<list.size(); i++) {
+            map.put(i, list.get(i));
+        }
 
-        // Find all rows in the table
-        List<WebElement> rows = table.findElements(By.tagName("p"));
+        int randomMapKey = r.nextInt((list.size()-1)+1);
+        boolean randomConcatBoolean = r.nextBoolean();
+        boolean randomStrToInt = r.nextBoolean();
+        String randomname = map.get(randomMapKey);
+        String concatName = map.get(r.nextInt((list.size()-1)+1));
 
-        // Define the regular expression pattern to match names
-        Pattern pattern = Pattern.compile("([A-Z][a-z]+)\\s+([A-Z][a-z]+)");
+        if(randomConcatBoolean) {
+            finalName = randomname + concatName;
+        }
+        else {
+            finalName = randomname;
+        }
 
-
-
-        // Loop through the paragraphs and extract the names
-//        Map<Integer, String> names = new HashMap<Integer, String>();
-//        for (WebElement paragraph : paragraphs) {
-//            String text = paragraph.getText();
-//            Matcher matcher = pattern.matcher(text);
-//            while (matcher.find()) {
-//                String name = matcher.group(0);
-//                int userid = randomIntGenerator(); // Replace with your own logic for generating user IDs
-//                names.put(userid, name);
-//            }
-//        }
-
-
-        Map<Integer, String> names = new HashMap<Integer, String>();
-        for (WebElement row : rows) {
-            List<WebElement> cells = row.findElements(By.tagName("td"));
-            if (cells.size() >= 2) { // Ensure there are at least two cells per row
-                String name = cells.get(1).getText();
-                Matcher matcher = pattern.matcher(name);
-                if (matcher.find()) {
-                    int userid = randomIntGenerator(); // Replace with your own logic for generating user IDs
-                    names.put(userid, matcher.group(0));
+        if(randomStrToInt) {
+            for(int j = 0; j<finalName.length(); j++) {
+                if(finalName.charAt(j) == 'i' || finalName.charAt(j) == 'I') {
+                    finalName = finalName.substring(0, j) + '1' + finalName.substring(j + 1);
+                }
+                if(finalName.charAt(j) == 's' || finalName.charAt(j) == 'S') {
+                    finalName = finalName.substring(0, j) + '$' + finalName.substring(j + 1);
                 }
             }
         }
 
-        // Close the Selenium WebDriver
-        driver.quit();
+        return finalName;
+    }
 
+    public static String randomPassword() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random r = new Random();
+        int randomLength = r.nextInt((12-1)+1);
+
+        Random random = new Random();
+        char[] password = new char[randomLength];
+        for (int i = 0; i < randomLength; i++) {
+            password[i] = characters.charAt(random.nextInt(characters.length()));
+        }
+
+        return new String(password);
     }
 }
