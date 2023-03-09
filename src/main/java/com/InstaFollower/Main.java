@@ -34,9 +34,9 @@ public class Main {
         String password = randomPassword();
         String firstname = "DavidSmith";
         String lastname = "Garcia";
-        String month = "12";
-        String day = "13";
-        String year = "1999";
+        String month = randomDates("month");
+        String day = randomDates("day");
+        String year = randomDates("year");
 
 
         // Define the path to the chrome webdriver
@@ -134,7 +134,7 @@ public class Main {
     }
 
     public static String randomPassword() {
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$%!@$%&*";
         Random r = new Random();
         int randomLength = r.nextInt((12-1)+1);
 
@@ -146,4 +146,27 @@ public class Main {
 
         return new String(password);
     }
+
+    public static String randomDates(String dateVal) {
+        Random r = new Random();
+
+        if(dateVal.equals("month")) {
+            int ranInt = r.nextInt((12-1)+1);
+            String month = String.valueOf(ranInt);
+            dateVal = month;
+        }
+        if(dateVal.equals("day")) {
+            int ranInt = r.nextInt((24)+1);
+            String day = String.valueOf(ranInt);
+            dateVal = day;
+        }
+        if(dateVal.equals("year")) {
+            int ranInt = r.nextInt(16) + 1989;
+            String year = String.valueOf(ranInt);
+            dateVal = year;
+        }
+
+        return dateVal;
+    }
+
 }
