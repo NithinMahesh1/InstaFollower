@@ -3,7 +3,8 @@ package com.InstaFollower.Randomizers;
 import java.util.*;
 
 public class randomUsername {
-    public static String randomUsername() {
+
+    public static String randomUsername(boolean isEmail) {
         // get a bunch of lastnames in a map of random index of a map with value being random ints from 1-10000 and lastnames being values
         // concat lastnames based on some sort of random arrangement
         // add ints random as well maybe sometimes maybe not
@@ -63,14 +64,20 @@ public class randomUsername {
         String randomname = map.get(randomMapKey);
         String concatName = map.get(r.nextInt((list.size()-1)+1));
 
-        if(randomConcatBoolean) {
+        if(randomConcatBoolean || isEmail) {
             finalName = randomname + concatName;
+        }
+        if(isEmail) {
+            int concatEmailNums = r.nextInt((6-1+1)+1);
+            finalName = finalName + concatEmailNums;
         }
         else {
             finalName = randomname;
         }
 
-        if(randomStrToInt) {
+
+
+        if(randomStrToInt && !isEmail) {
             for(int j = 0; j<finalName.length(); j++) {
                 if(finalName.charAt(j) == 'i' || finalName.charAt(j) == 'I') {
                     finalName = finalName.substring(0, j) + '1' + finalName.substring(j + 1);

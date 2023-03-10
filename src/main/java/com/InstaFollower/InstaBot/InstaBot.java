@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Random;
 
 public class InstaBot {
     String username;
@@ -21,7 +22,7 @@ public class InstaBot {
     String day;
     String year;
     WebDriver driver;
-    EmailBot bot;
+    EmailBot emailbot;
 
     /*
     * TODO
@@ -33,7 +34,7 @@ public class InstaBot {
     *           InstaBot() extends BOT {}
     * */
 
-    public InstaBot(String username, String password, String firstname, String lastname, String day, String month, String year, WebDriver driver, EmailBot bot) {
+    public InstaBot(String username, String password, String firstname, String lastname, String day, String month, String year, WebDriver driver, EmailBot emailbot) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -42,32 +43,34 @@ public class InstaBot {
         this.day = day;
         this.year = year;
         this.driver = driver;
-        this.bot = bot;
+        this.emailbot = emailbot;
     }
 
     public void runInstaBot() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.get("https://www.instagram.com/accounts/emailsignup/");
+        Random r = new Random();
 
         // Sign up main page
-        Thread.sleep(3000);
+        int randomTimer = r.nextInt(2001) +5000;
+        Thread.sleep(randomTimer);
         WebElement emailInput = driver.findElement(By.name("emailOrPhone"));
         WebElement fullname = driver.findElement(By.name("fullName"));
         WebElement usernameElem = driver.findElement(By.name("username"));
         WebElement passwordElem = driver.findElement(By.name("password"));
         WebElement signUpButton = driver.findElement(By.xpath("//button[contains(text(), 'Sign up')]"));
 
-        Thread.sleep(3000);
-        emailInput.sendKeys(username + "@tutanota.com");
+        randomTimer = r.nextInt(2001) +5000;
+        Thread.sleep(randomTimer);
+        emailInput.sendKeys(emailbot.getUsername() + "@tutanota.com");
         fullname.sendKeys(firstname + " " + lastname);
         usernameElem.sendKeys(username);
-        //passwordElem.sendKeys("nahbutTh1$!");
         passwordElem.sendKeys(password);
         signUpButton.click();
 
         // Birthday inputs second menu
         // Find the elements for the day, month, and year dropdown menus
-        Thread.sleep(2000);
+        Thread.sleep(randomTimer);
         WebElement dayDropdown = driver.findElement(By.xpath("//select[@title='Day:']"));
         WebElement monthDropdown = driver.findElement(By.xpath("//select[@title='Month:']"));
         WebElement yearDropdown = driver.findElement(By.xpath("//select[@title='Year:']"));
@@ -93,8 +96,8 @@ public class InstaBot {
         *      - Hit next button
         * */
 
-        bot.loginEmail(driver, username, password);
-        String generatedCode = bot.getInstaConfirmationCode(driver);
+        emailbot.loginEmail(driver, username, password);
+        String generatedCode = emailbot.getInstaConfirmationCode(driver);
 
         /**
          * WebElement confirmcodefield = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//aria-label[@name='Confirmation Code']")));
@@ -104,7 +107,7 @@ public class InstaBot {
          * WebElement confirmcodefield = driver.findElement(By.xpath("//input[contains(text(), 'Confirmation Code')]"));
          * */
 
-        Thread.sleep(10000);
+        Thread.sleep(randomTimer);
 
         // We need to rethink this - not sure why no matter what we can't grab this - maybe because of being banned
         WebElement confirmcodefield = driver.findElement(By.xpath("//input[@aria-label='Confirmation Code']"));

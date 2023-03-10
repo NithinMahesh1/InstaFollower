@@ -2,6 +2,8 @@ package com.InstaFollower.EmailBot;
 
 // Instafollower Class Imports
 import com.InstaFollower.ElementHelper.ElementHelper;
+import com.InstaFollower.Randomizers.randomUsername;
+import com.InstaFollower.Randomizers.randomPassword;
 
 // Selenium class imports
 import org.openqa.selenium.*;
@@ -12,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Random;
 
 public class EmailBot {
     String username;
@@ -24,12 +27,16 @@ public class EmailBot {
         this.driver = driver;
     }
 
+    public String getUsername() {return this.username;}
+    public String getPassword() {return this.password;}
+
     public void runEmailBot() throws InterruptedException {
         // Open the desired webpage
         driver.get("https://mail.tutanota.com/login?noAutoLogin=true");
 
         ElementHelper helper = new ElementHelper(driver);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        Random r = new Random();
 
         // Clicks the More Option
         WebElement moreDropdownButton = helper.findElement(By.className("expander"));
@@ -65,8 +72,23 @@ public class EmailBot {
         passwordField.sendKeys(password);
         checkbox1Page3.click();
         checkbox2Page3.click();
-        Thread.sleep(5000);
-        nextButton.click();
+        int randomTimer = r.nextInt(5001) +5000;
+
+        Thread.sleep(randomTimer);
+        try {
+            nextButton.click();
+        }
+        catch(Exception e) {
+            /**
+             * IMPORTANT TODO - before we continue user creation testing
+             * Need to call randomizers here for username and password
+             * However we need to update the variables since we reuse this for instagram users
+             * Or if we don't reuse them we need to randomize different variables for the instagram bot
+             * Need to put some thought into this one
+             * */
+            System.out.println("test");
+        }
+
 
         // After input field we get to the last page 3 and click the "Ok" button
         // TODO - how do we get past the clock captcha

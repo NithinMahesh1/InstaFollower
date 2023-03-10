@@ -6,7 +6,7 @@ public class randomPassword {
     public static String randomPassword() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$%!@$%&*";
         Random r = new Random();
-        int randomLength = r.nextInt((12-1)+1);
+        int randomLength = r.nextInt(17 - 17 + 1) + 17;
 
         Random random = new Random();
         char[] password = new char[randomLength];
