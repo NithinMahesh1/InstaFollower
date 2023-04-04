@@ -63,6 +63,7 @@ public class EmailBot {
         Thread.sleep(2000);
         WebElement emailAddyField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@aria-label='Email address']")));
         WebElement passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@aria-label='Set password']")));
+        WebElement repeatPasswordField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@aria-label='Repeat password']")));
         WebElement checkbox1Page3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'I have read and agree to the following documents')]")));
         WebElement checkbox2Page3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'I am at least 16 years old')]")));
         WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Next']")));
@@ -70,6 +71,7 @@ public class EmailBot {
         // Click the two checkboxes on signup screen and then hit next button
         emailAddyField.sendKeys(username);
         passwordField.sendKeys(password);
+        repeatPasswordField.sendKeys(password);
         checkbox1Page3.click();
         checkbox2Page3.click();
         int randomTimer = r.nextInt(5001) +5000;
@@ -92,6 +94,7 @@ public class EmailBot {
 
         // After input field we get to the last page 3 and click the "Ok" button
         // TODO - how do we get past the clock captcha
+        // TODO - add a random timer int here from 22000 to 40000
         Thread.sleep(22000);
         WebElement okButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Ok']")));
         okButton.click();

@@ -26,8 +26,8 @@ public class Main {
         String emailPassword = ranPassword.randomPassword();
         String instaUsername = ranUsername.randomUsername(!isEmail);
         String instaPassword = ranPassword.randomPassword();
-        String firstname = "DavidSmith";
-        String lastname = "Garcia";
+        String firstname = "Jimmy";
+        String lastname = "Zanng";
         String month = dateRan.randomDates("month");
         String day = dateRan.randomDates("day");
         String year = dateRan.randomDates("year");
